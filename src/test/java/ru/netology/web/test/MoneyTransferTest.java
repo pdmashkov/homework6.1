@@ -39,10 +39,13 @@ public class MoneyTransferTest {
         var transferPage = dashboardPage.selectCardToTransfer(firstCard);
         transferPage.transferMoney(amount, secondCard);
 
-        int expected = balanceFirstCard + amount;
-        int actual = dashboardPage.getCardBalance(firstCard);
+        int expectedFirstCard = balanceFirstCard + amount;
+        int actualFirstCard = dashboardPage.getCardBalance(firstCard);
+        Assertions.assertEquals(expectedFirstCard, actualFirstCard);
 
-        Assertions.assertEquals(expected, actual);
+        int expectedSecondCard = balanceSecondCard - amount;
+        int actualSecondCard = dashboardPage.getCardBalance(secondCard);
+        Assertions.assertEquals(expectedSecondCard, actualSecondCard);
     }
 
     @Test
@@ -52,10 +55,13 @@ public class MoneyTransferTest {
         var transferPage = dashboardPage.selectCardToTransfer(secondCard);
         transferPage.transferMoney(amount, firstCard);
 
-        int expected = balanceSecondCard + amount;
-        int actual = dashboardPage.getCardBalance(secondCard);
+        int expectedSecondCard = balanceSecondCard + amount;
+        int actualSecondCard = dashboardPage.getCardBalance(secondCard);
+        Assertions.assertEquals(expectedSecondCard, actualSecondCard);
 
-        Assertions.assertEquals(expected, actual);
+        int expectedFirstCard = balanceFirstCard - amount;
+        int actualFirstCard = dashboardPage.getCardBalance(firstCard);
+        Assertions.assertEquals(expectedFirstCard, actualFirstCard);
     }
 
     @Test
